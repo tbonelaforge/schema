@@ -1,0 +1,22 @@
+The main point of this project was to provide a "drag and drop" type of interface to work with XML documents in the browser.
+The main module is a javascript object that encapsulates the rules defined in an XML schema definition.
+The schema.js object reads a schema definition, in XSD format, and produces an object representing the XSD schema itself.
+Then, any XML DOM element can be passed to the schema's "allowsAddChild" method, along with a proposed child element.
+The function will answer yes or no, depending on whether adding the given child to the given parent element would result in a valid
+XML document, or not.
+
+This leads to a visual way of building valid xml documents in the browser, when used in conjunction with the documentvisualizer object.
+
+Opening the schematest.html file in a browser should produce a usable demo, with a schema for a "Red-Black tree" already loaded up. 
+A Red-Black tree is a binary tree where each node is colored either red or black, and both children of every red node are always black.
+Click on "red" or "black" under "Add Child" and star dragging the word.  Any "droppable" elements should be highlighted in the document visualization area.  Dropping a child on a parent element changes the underlying document, and click "Get Xml" will log the resulting XML to the console. Furthermore, every time the document changes, the droppable zones for each child type are updated by applying the schema rules to the new document.  In this way, you can only build valid red-black trees with this interface.
+
+The schema module currently only understands the following schema definition elements.
+
+<xsd:all>
+<xsd:choice>
+<xsd:complextype>
+<xsd:element>
+<xsd:sequence>
+
+However, the same basic ideas could be augmented to handle more element definition types, attribute definitions, etc.
