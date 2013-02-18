@@ -7,7 +7,7 @@ XML document, or not.
 
 This leads to a visual way of building valid xml documents in the browser, when used in conjunction with the document visualizer object.
 
-Opening the schematest.html file in a browser should produce a usable demo, with a schema for a "Red-Black tree" already loaded up. 
+After downloading the code, opening the schematest.html file in a browser should produce a usable demo, with a schema for a "Red-Black tree" already loaded up. 
 A Red-Black tree is a binary tree where each node is colored either red or black, and both children of every red node are always black.
 Click on "red" or "black" under "Add Child" and start dragging the word.  Any "droppable" elements should be highlighted in the document visualization area.  Dropping a child on a parent element changes the underlying document, and clicking "Get Xml" will log the resulting XML to the javascript console. Every time the document changes, the droppable zones for each child type are updated by applying the schema rules to the new document.  In this way, you can only build valid red-black trees with this interface.
 
