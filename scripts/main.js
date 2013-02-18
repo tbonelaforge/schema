@@ -15,182 +15,35 @@ function(
     DocumentVisualizer
 ) {
 
-    var xsd = '<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">' +
-
-    '<xsd:element name="box">' +
+    var xsd = '<?xml version="1.0" encoding="UTF-8"?>' +
+    '<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">' +
+      '<xsd:element name="red">' +
         '<xsd:complexType>' +
-        '<xsd:sequence>' +
-        '<xsd:element ref="label"      minOccurs="0" />' +
-        '<xsd:choice                   minOccurs="1" maxOccurs="unbounded">' +
-        '<xsd:element ref="choice"/>' +
-        '<xsd:element ref="input" />' +
-        '</xsd:choice>' +
-        '<xsd:element ref="key"        minOccurs="0" />' +
-        '<xsd:element ref="units"      minOccurs="0" />' +
-        '<xsd:element ref="descriptor" minOccurs="0" />' +
-        '<xsd:element ref="grading"    minOccurs="0" />' +
-        '<xsd:element ref="concepts"   minOccurs="0" />' +
-        '</xsd:sequence>' +
+          '<xsd:sequence>' +
+            '<xsd:choice minOccurs="0" maxOccurs="2">' +
+              '<xsd:element ref="black" />' +
+            '</xsd:choice>' +
+          '</xsd:sequence>' +
         '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="choice">' +
+      '</xsd:element>' +
+        
+      '<xsd:element name="black">' +
         '<xsd:complexType>' +
-        '<xsd:all>' +
-        '<xsd:element ref="label" />' +
-        '<xsd:element ref="feedbackText" minOccurs="0" />' +
-        '</xsd:all>' +
+          '<xsd:sequence>' +
+            '<xsd:choice minOccurs="0" maxOccurs="2">' +
+              '<xsd:element ref="red" />' +
+              '<xsd:element ref="black" />' +
+            '</xsd:choice>' +
+          '</xsd:sequence>' +
         '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="concepts">' +
-        '<xsd:complexType>' +
-        '<xsd:sequence>' +
-        '<xsd:element ref="concept" minOccurs="0" maxOccurs="unbounded" />' +
-        '</xsd:sequence>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="concept">' +
-        '<xsd:complexType mixed="true">' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="content">' +
-        '<xsd:complexType>' +
-        '<xsd:sequence>' +
-        '<xsd:element ref="instructions" minOccurs="0" maxOccurs="unbounded" />' +
-        '<xsd:element ref="given"        minOccurs="0" maxOccurs="unbounded" />' +
-        '<xsd:element ref="figure"       minOccurs="0" maxOccurs="unbounded" />' +
-        '<xsd:element ref="box"          minOccurs="0" maxOccurs="unbounded" />' +
-        '<xsd:choice minOccurs="0">' +
-        '<xsd:element ref="stack"/>' +
-        '<xsd:element ref="parts"/>' +
-        '</xsd:choice>' +
-        '</xsd:sequence>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="figure">' +
-        '<xsd:complexType>' +
-        '<xsd:all>' +
-        '<xsd:element ref="path"     minOccurs="1" />' +
-        '<xsd:element ref="source"   minOccurs="1" />' +
-        '</xsd:all>' +
-        '<xsd:attribute name="type" default="image"/>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="given">' +
-        '<xsd:complexType mixed="true">' +
-        '<xsd:sequence>' +
-        '<xsd:choice minOccurs="0" maxOccurs="unbounded">' +
-        '<xsd:element ref="figure" />' +
-        '<xsd:element ref="math" />' +
-        '<xsd:element ref="var" />' +
-        '</xsd:choice>' +
-        '</xsd:sequence>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="grading">' +
-        '<xsd:complexType>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="feedbackText">' +
-        '<xsd:complexType mixed="true">' +
-        '<xsd:sequence>' +
-        '<xsd:choice minOccurs="0" maxOccurs="unbounded">' +
-        '<xsd:element ref="math" />' +
-        '<xsd:element ref="var" />' +
-        '</xsd:choice>' +
-        '</xsd:sequence>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="instructions">' +
-        '<xsd:complexType mixed="true">' +
-        '<xsd:sequence>' +
-        '<xsd:choice minOccurs="0" maxOccurs="unbounded">' +
-        '<xsd:element ref="math" />' +
-        '<xsd:element ref="box" />' +
-        '<xsd:element ref="var" />' +
-        '</xsd:choice>' +
-        '</xsd:sequence>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="key">' +
-        '<xsd:complexType mixed="true">' +
-        '<xsd:sequence>' +
-        '<xsd:choice minOccurs="0" maxOccurs="unbounded">' +
-        '<xsd:element ref="var" />' +
-        '</xsd:choice>' +
-        '</xsd:sequence>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="label">' +
-        '<xsd:complexType mixed="true">' +
-        '<xsd:sequence>' +
-        '<xsd:choice minOccurs="0" maxOccurs="unbounded">' +
-        '<xsd:element ref="math" />' +
-        '<xsd:element ref="figure" />' +
-        '<xsd:element ref="var" />' +
-        '</xsd:choice>' +
-        '</xsd:sequence>' +
-        '<xsd:attribute name="type" />' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="math">' +
-        '<xsd:complexType mixed="true">' +
-        '<xsd:sequence>' +
-        '<xsd:choice minOccurs="0" maxOccurs="unbounded">' +
-        '<xsd:element ref="var" />' +
-        '</xsd:choice>' +
-        '</xsd:sequence>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="parts">' +
-        '<xsd:complexType>' +
-        '<xsd:sequence>' +
-        '<xsd:element ref="content" minOccurs="0" maxOccurs="unbounded" />' +
-        '</xsd:sequence>' +
-        '<xsd:attribute name="type" default="alpha" />' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="stack">' +
-        '<xsd:complexType>' +
-        '<xsd:sequence>' +
-        '<xsd:choice minOccurs="0" maxOccurs="unbounded">' +
-        '<xsd:element ref="box" />' +
-        '</xsd:choice>' +
-        '</xsd:sequence>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
-    '<xsd:element name="units">' +
-        '<xsd:complexType mixed="true">' +
-        '<xsd:sequence>' +
-        '<xsd:choice minOccurs="0" maxOccurs="unbounded">' +
-        '<xsd:element ref="math" />' +
-        '<xsd:element ref="var" />' +
-        '</xsd:choice>' +
-        '</xsd:sequence>' +
-        '</xsd:complexType>' +
-        '</xsd:element>' +
-
+      '</xsd:element>' +  
     '</xsd:schema>';
 
     var schema = new Schema();
     schema.initialize(xsd);
 
-    var xml = "<content></content>";
-    var documentVisualizer = DocumentVisualizer.constructFromXml(xml, 'content');
+    var xml = "<black></black>";
+    var documentVisualizer = DocumentVisualizer.constructFromXml(xml, 'black');
 
     documentVisualizer.visualize($('#documentVisualization'), {
         droppableOptions : dropOptionsForVisualizer,
